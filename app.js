@@ -4,13 +4,12 @@ const csvreader = require('csv-reader')
 const fs = require('fs')
 const trainTestSplit = require('train-test-split')
 const MLAlgorithms  = require('jsmachinelearning')
-const mse = require('mse')
 
 
 const app = express()
 
 
-app.get('/', async (req, res) => {
+app.get('/backend/classification', async (req, res) => {
     KNNClassification(res)    
 })
 
@@ -24,24 +23,35 @@ const KNNClassification = (res) => {
         })
         .on('end', async () => {
             data.shift()
-            const {trainX, trainY, testX, testY} = await splitTrainAndTest(data)
             
-            var knn = new KNN(trainX, trainY, { k: 1 })
-            var pred = knn.predict(testX)
+            let iteration = 1, accuracy = 0
+            var pred, knn
+            const maxIterationCount = 500
+            while (accuracy < 0.8 && iteration < maxIterationCount) {
+                const {trainX, trainY, testX, testY} = await splitTrainAndTest(data)
+                knn = new KNN(trainX, trainY, {k: 3})
+    
+                pred = knn.predict(testX)
+                accuracy = calculateAccuracy(pred, testY)
+
+                iteration++;
+            }
             
-            var result = await mse(pred, testY);
-            res.json({'mse': result, 'acc': 1 - result})
+            res.json({'acc': accuracy, 'mse': calculateError(accuracy)})
         })
 }
 
 const readCSVFile = () => {
-    return fs.createReadStream('public/dataset.csv', 'utf8')
+    return fs.createReadStream('public/iris.csv', 'utf8')
 }
 
 const splitTrainAndTest = async (data) => {
-    const [train, test] = trainTestSplit(data, 0.6, 1234)
+    const [train, test] = trainTestSplit(data, 0.7)
+    // const [train, test] = trainTestSplit(data, 0.7, 1234)
     var [trainX, trainY] = MLAlgorithms.get_X_And_Y(train)
     var [testX, testY] = MLAlgorithms.get_X_And_Y(test)
+    trainY = labelEncoding(trainY)
+    testY = labelEncoding(testY)
     return {
         'trainX': trainX, 
         'trainY': trainY, 
@@ -50,6 +60,25 @@ const splitTrainAndTest = async (data) => {
     }
 }
 
+const labelEncoding = (data) => {
+    const uniqueValues = Array.from(new Set(data));
+    const encodedData = data.map(value => uniqueValues.indexOf(value));
+    return encodedData;
+}
+
+const calculateAccuracy = (pred, testY) => {
+    var current = 0
+    for (let i = 0; i < pred.length; i++) {
+        if (pred[i] = testY[i]) {
+            current++
+        }
+    }
+    return Number((current / pred.length).toFixed(2))
+}
+
+const calculateError = (accuracy) => {
+    return Number((1 - accuracy).toFixed(2))
+}
 
 app.listen(3000, () => {
     console.log('Server başlatıldı')

@@ -14,7 +14,6 @@
     "express": "^4.18.2",
     "jsmachinelearning": "^1.0.1",
     "ml-knn": "^3.0.0",
-    "mse": "^0.1.0",
     "train-test-split": "^1.0.0"
   }
 }
