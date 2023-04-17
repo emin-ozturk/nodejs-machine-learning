@@ -11,9 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "csv-reader": "^1.0.11",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
     "jsmachinelearning": "^1.0.1",
     "ml-knn": "^3.0.0",
+    "multer": "^1.4.5-lts.1",
     "train-test-split": "^1.0.0"
   }
 }
