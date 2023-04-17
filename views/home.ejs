@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="/style.css">
-    <title>Node.JS ML</title>
+    <title>Node.js - ML</title>
 </head>
 <body>
 
@@ -29,9 +29,20 @@
             
             <button type="submit" class="btn-learning">Öğret</button>
         </form>
-
         
+        <h2 class="title">Sonuç</h2>
 
+        <div class="result">
+            <span><%=acc%>%</span>
+            <span><%=mse%>%</span>
+        </div>
+
+        <div class="result-bar">
+            <div style="width: <%=acc * 100%>%;" class="result-acc"></div>
+            <div style="width: <%=mse * 100%>%;" class="result-mse"></div>
+        </div>
+
+        <p><%=iteration%>/<%=maxIterationCount%> iterasyon sonucu ulaşılan sonuç</p>
     </div>
 
 

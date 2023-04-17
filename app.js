@@ -10,7 +10,14 @@ app.use(express.static('public'))
 app.use(express.json())
 
 app.get('/classification', async (req, res) => {
-    res.render('home')
+    res.render('home',
+    {
+        'acc': 0, 
+        'mse': 0,
+        'iteration': 0,
+        'maxIterationCount': 0
+    }
+    )
 })
 
 const storage = multer.diskStorage({
