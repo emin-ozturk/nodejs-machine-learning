@@ -10,9 +10,9 @@
 
 
     <div class="area">
-        <h2 class="title">Sınıflandırma</h2>
+        <h2 class="title">Node.js - ML</h2>
 
-        <form action="/classification" method="POST"
+        <form action="/" method="POST"
                     enctype="multipart/form-data">
             
             <p>Dosya</p>
@@ -20,10 +20,10 @@
                 <input type="file" name="dataset" required>
             </label>
 
-            <p>Algoritma</p>
-            <select id="algorithm" name="algorithm">
-                <option value="knn">Sınıflandırma</option>
-                <option value="saab">Regresyon</option>
+            <p>Yöntem</p>
+            <select id="method" name="method">
+                <option value="classification">Sınıflandırma</option>
+                <option value="regression ">Regresyon</option>
             </select>
             
             <p>Algoritma</p>
@@ -42,8 +42,8 @@
         </div>
 
         <div class="result-bar">
-            <div style="width: <%=acc * 100%>%;" class="result-acc"></div>
-            <div style="width: <%=mse * 100%>%;" class="result-mse"></div>
+            <div style="width: <%=acc%>%;" class="result-acc"></div>
+            <div style="width: <%=mse%>%;" class="result-mse"></div>
         </div>
 
         <p><%=iteration%>/<%=maxIterationCount%> iterasyon sonucu ulaşılan sonuç</p>

@@ -5,11 +5,11 @@ const calculateAccuracy = (pred, testY) => {
             current++
         }
     }
-    return Number((current / pred.length).toFixed(2))
+    return Number((current / pred.length * 100).toFixed(2))
 }
 
 const calculateError = (accuracy) => {
-    return Number((1 - accuracy).toFixed(2))
+    return Number((100 - accuracy).toFixed(2))
 }
 
 module.exports = {

@@ -19,7 +19,7 @@ const classification = (res) => {
             let iteration = 1
             var pred, knn
             const maxIterationCount = 100
-            while (accuracy < 0.8 && iteration < maxIterationCount) {
+            while (accuracy < 80 && iteration < maxIterationCount) {
                 const {trainX, trainY, testX, testY} = await Data.splitTrainAndTest(data)
                 knn = new KNN(trainX, trainY, {k: 3})
     

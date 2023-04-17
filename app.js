@@ -1,5 +1,6 @@
 const express = require('express')
 const KNNClassification = require('./ClassificationModels/KNN')
+const MultipleLinearRegression = require('./RegressionModels/MultipleLinearRegression')
 const path = require("path")
 const multer = require("multer")
 
@@ -9,7 +10,7 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.json())
 
-app.get('/classification', async (req, res) => {
+app.get('/', async (req, res) => {
     res.render('home',
     {
         'acc': 0, 
@@ -33,13 +34,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-app.post('/classification',  upload.single('dataset'), (req, res) => {
-    const algorithm = req.body.algorithm
-    switch (algorithm) {
-        case 'knn':
+app.post('/',  upload.single('dataset'), (req, res) => {
+    const method = req.body.method
+    switch (method) {
+        case 'classification':
             KNNClassification.classification(res)
             break
-        
+        case 'regression':
+
+            break
     }
    
 })
