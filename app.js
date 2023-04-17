@@ -34,8 +34,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 app.post('/classification',  upload.single('dataset'), (req, res) => {
-    
-    KNNClassification.classification(res)
+    const algorithm = req.body.algorithm
+    switch (algorithm) {
+        case 'knn':
+            KNNClassification.classification(res)
+            break
+        
+    }
+   
 })
 
 app.listen(3000, () => {

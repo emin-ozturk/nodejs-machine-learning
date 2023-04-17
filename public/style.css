@@ -1,6 +1,11 @@
+body {
+    background-image: url("bg.jpg");
+}
+
 .area {
     width: 30%;
-    height: 500px;
+    min-width: 400px;
+    height: 90%;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 10px;
     transform: translate(-50%, -50%);
@@ -9,6 +14,9 @@
     left: 50%;
     padding: 0 20px;
     font-family: 'Courier New', Courier, monospace;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: white;
 }
 
 .title {
@@ -39,18 +47,30 @@ input[type=file]::-webkit-file-upload-button:hover {
     color: rgb(255, 255, 255);
     background-color: rgb(17, 97, 73);
 }
-.algorithm {
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     width: 100%;
     height: 40px;
     border: 1px solid #333;
     border-radius: 10px;
-    display: flex;
-    align-items: center;
+    margin: 0;
+    font-size: 16px;
+    padding: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
 }
 
-.algorithm p {
-    margin: 10px;
+select:focus {
+    outline: none;
 }
+
+option {
+    padding: 20px;
+}
+
 
 .btn-learning {
     margin-top: 25px;
