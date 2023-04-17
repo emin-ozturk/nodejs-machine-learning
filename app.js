@@ -1,6 +1,7 @@
 const express = require('express')
 const KNNClassification = require('./ClassificationModels/KNN')
-
+const path = require("path")
+const multer = require("multer")
 
 const app = express()
 
@@ -12,10 +13,23 @@ app.get('/classification', async (req, res) => {
     res.render('home')
 })
 
-app.post('/classification', (req, res) => {
-    KNNClassification.classification(res)
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+        const fileExtension = path.extname(file.originalname)
+        const fileName = 'dataset' + fileExtension
+        cb(null, fileName)
+    }
 })
 
+const upload = multer({ storage: storage })
+
+app.post('/classification',  upload.single('dataset'), (req, res) => {
+    
+    KNNClassification.classification(res)
+})
 
 app.listen(3000, () => {
     console.log('Server başlatıldı')
