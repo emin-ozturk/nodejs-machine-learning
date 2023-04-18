@@ -13,12 +13,12 @@ app.use(express.json())
 app.get('/', async (req, res) => {
     res.render('home',
     {
+        'type': null,
         'acc': 0, 
-        'mse': 0,
+        'err': 0,
         'iteration': 0,
         'maxIterationCount': 0
-    }
-    )
+    })
 })
 
 const storage = multer.diskStorage({
@@ -41,7 +41,7 @@ app.post('/',  upload.single('dataset'), (req, res) => {
             KNNClassification.classification(res)
             break
         case 'regression':
-
+            MultipleLinearRegression.regression(res)
             break
     }
    

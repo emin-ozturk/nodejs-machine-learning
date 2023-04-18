@@ -120,7 +120,7 @@ option {
     border-radius: 10px 0 0 10px;
 }
 
-.result-bar .result-mse {
+.result-bar .result-err {
     height: 100%;
     background: rgb(194, 35, 35);
     border-radius: 0 10px 10px 0;

@@ -23,30 +23,40 @@
             <p>Yöntem</p>
             <select id="method" name="method">
                 <option value="classification">Sınıflandırma</option>
-                <option value="regression ">Regresyon</option>
+                <option value="regression">Regresyon</option>
             </select>
             
             <p>Algoritma</p>
             <select id="algorithm" name="algorithm">
-                <option value="knn">K-NN</option>
-                <option value="saab">Saab</option>
+                <option value="knn">K-Nearest Neighbors</option>
+                <option value="MultipleLinearRegression">MultipleLinearRegression</option>
+                <option value="SimpleLinearRegression">SimpleLinearRegression</option>
             </select>
             
             <button type="submit" class="btn-learning">Öğret</button>
         </form>
         
         <h2 class="title">Sonuç</h2>
-        <div class="result">
-            <span><%=acc%>%</span>
-            <span><%=mse%>%</span>
-        </div>
+        <% if (type == null) { %>
+            <p>Sonuçlar burada gösterilecek</p>
+        <% } else if (type == 'classification') { %>
+            <div class="result">
+                <span><%=acc%>%</span>
+                <span><%=err%>%</span>
+            </div>
 
-        <div class="result-bar">
-            <div style="width: <%=acc%>%;" class="result-acc"></div>
-            <div style="width: <%=mse%>%;" class="result-mse"></div>
-        </div>
+            <div class="result-bar">
+                <div style="width: <%=acc%>%;" class="result-acc"></div>
+                <div style="width: <%=err%>%;" class="result-err"></div>
+            </div>
 
-        <p><%=iteration%>/<%=maxIterationCount%> iterasyon sonucu ulaşılan sonuç</p>
+            <p><%=iteration%>/<%=maxIterationCount%> iterasyon sonucu ulaşılan sonuç</p>
+        <% } else if (type == 'regression') { %>
+            <p>MAE: <%=mae%></p>
+            <p>MSE: <%=mse%></p>
+            <p>RMSE: <%=rmse%></p>
+            <p><%=iteration%>/<%=maxIterationCount%> iterasyon sonucu ulaşılan sonuç</p>
+        <% } %>
     </div>
 
 

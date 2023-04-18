@@ -31,8 +31,9 @@ const classification = (res) => {
             
             res.render('home', 
                 {
+                    'type': 'classification',
                     'acc': accuracy, 
-                    'mse': Calculate.calculateError(accuracy),
+                    'err': Calculate.calculateError(accuracy),
                     'iteration': iteration,
                     'maxIterationCount': maxIterationCount
                 }
