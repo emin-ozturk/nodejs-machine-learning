@@ -1,6 +1,7 @@
 const express = require('express')
 const KNNClassification = require('./ClassificationModels/KNN')
 const MultipleLinearRegression = require('./RegressionModels/MultipleLinearRegression')
+const SimpleLinearRegression = require('./RegressionModels/SimpleLinearRegression')
 const path = require("path")
 const multer = require("multer")
 
@@ -35,16 +36,33 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 app.post('/',  upload.single('dataset'), (req, res) => {
-    const method = req.body.method
+    const { method, algorithm } = req.body
     switch (method) {
         case 'classification':
             KNNClassification.classification(res)
             break
         case 'regression':
-            MultipleLinearRegression.regression(res)
+            if (algorithm == 'MultipleLinearRegression') {
+                MultipleLinearRegression.regression(res)
+            } else if (algorithm == 'SimpleLinearRegression') {
+                SimpleLinearRegression.regression(res)
+            }
             break
     }
    
+})
+
+app.get('/method/:value', (req, res) => {
+    const value = req.params.value
+    switch (value) {
+        case 'classification':
+            res.json({'methods': ['K-Nearest Neighbors']})
+            break;
+        case 'regression':
+            res.json({'methods': ['MultipleLinearRegression'/*, 'SimpleLinearRegression'*/]})
+            break;
+        
+    }
 })
 
 app.listen(3000, () => {

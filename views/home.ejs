@@ -29,8 +29,6 @@
             <p>Algoritma</p>
             <select id="algorithm" name="algorithm">
                 <option value="knn">K-Nearest Neighbors</option>
-                <option value="MultipleLinearRegression">MultipleLinearRegression</option>
-                <option value="SimpleLinearRegression">SimpleLinearRegression</option>
             </select>
             
             <button type="submit" class="btn-learning">Öğret</button>
@@ -61,5 +59,32 @@
 
 
 </body>
+
+<script>
+    var selectElement = document.getElementById("method")
+    var algorithm = document.getElementById("algorithm")
+    selectElement.addEventListener("change", function() {
+        var selectedOption = this.options[this.selectedIndex]
+        const endpoint = '/method/' + selectedOption.value
+        fetch(endpoint, { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+
+            fillAlgorithCombobox(data)
+            
+        })
+        .catch(error => console.error(error));
+        // console.log("Seçilen seçenekin değeri: " + selectedOption.value)
+    })
+
+    const fillAlgorithCombobox = (data) => {
+        var options = ''
+        data.methods.forEach(element => {
+            options += '<option value="'+ element + '">' + element +  '</option>'
+        })
+        algorithm.innerHTML = '"' + options + '"'
+    } 
+
+</script>
 
 </html>
